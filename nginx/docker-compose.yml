@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    hostname: nginx
+    networks:
+      - devops
+    privileged: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./www:/var/www
+      - ./ssl:/etc/nginx/ssl
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+
+networks:
+  devops:
+    name: devops
+    external: true

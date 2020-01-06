@@ -11,7 +11,7 @@ services:
       - ./data:/data
     networks:
       - "redisnet"
-    # command: redis-server --appendonly yes
+    command: redis-server  --requirepass riversky  
 
 networks: 
   redisnet: 

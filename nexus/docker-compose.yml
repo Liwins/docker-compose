@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  nexus:
+    image: sonatype/nexus3
+    container_name: nexus
+    hostname: nexus
+    networks:
+      - devops
+    ports:
+      - "8081:8081"
+    volumes:
+     - nexus-data:/nexus-data
+
+  registry:
+    image: registry:2
+    container_name: registry
+    networks:
+      - devops
+    ports:
+      - 5000:5000
+    environment:
+      - REGISTRY_PROXY_REMOTEURL="https://docker.mirrors.ustc.edu.cn"
+    volumes:
+      - registry:/var/lib/registry
+
+volumes:
+  nexus-data:
+    name: nexus-data
+  registry:
+    name: registry
+
+networks:
+  devops:
+    name: devops
+    external: true
