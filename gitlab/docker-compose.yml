@@ -1,39 +1,24 @@
-version: '3.7'
-
+version: "3"
 services:
   gitlab:
-    image: gitlab/gitlab-ce
-    container_name: gitlab
-    hostname: gitlab
-    environment:
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://gitlab.example.com'
-        nginx['redirect_http_to_https'] = true
+    image: "gitlab/gitlab-ce:11.7.5-ce.0"
+    container_name: "gitlab"
+    restart: "always"
     ports:
+      - "8081:80"
+      - "4443:443"
       - "2222:22"
-      - "8080:80"
-      - "8443:443"
     networks:
-      - devops
+      - "gitlab-net"
     volumes:
-      - gitlab-config:/etc/gitlab
-      - gitlab-logs:/var/log/gitlab
-      - gitlab-data:/var/opt/gitlab
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
-
-networks:
-  devops:
-    name: devops
-    external: true
+      - "gitlab-config:/etc/gitlab"
+      - "gitlab-logs:/var/log/gitlab"
+      - "gitlab-data:/var/opt/gitlab"
 
 volumes:
   gitlab-config:
-    name: gitlab-config
   gitlab-logs:
-    name: gitlab-logs
   gitlab-data:
-    name: gitlab-data
+
+networks:
+  gitlab-net:

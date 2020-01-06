@@ -1,4 +1,4 @@
-### api网关kong的compose文件
+### nginx的compose 文件
 
 使用
 
@@ -9,7 +9,7 @@
 
 ### 版本状态
 
-- 20190318 第一版本可以使用
+- 20190220 第一版本可以使用
 
 *Email: bboysoulcn@gmail.com*
 *Powered by Bboysoul*
