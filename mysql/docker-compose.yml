@@ -1,14 +1,16 @@
 version: '3'
 
 services:
-
-  db:
-    image: mysql:5.7.23
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
-    container_name: "mysql_5_7"
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: riversky #设置root帐号密码
     ports:
       - 3306:3306
-    volumes: 
-      - ./data:/var/lib/mysql
+    volumes:
+      - /dockerdata/mydata/mysql/data/db:/var/lib/mysql #数据文件挂载
+      - /dockerdata/mydata/mysql/data/conf:/etc/mysql/conf.d #配置文件挂载
+      - /dockerdata/mydata/mysql/log:/var/log/mysql #日志文件挂载
